@@ -1,0 +1,43 @@
+algoritmo,variante,n,t1_ns,t2_ns,t3_ns,t4_ns,t5_ns
+Busqueda Lineal,mezclado,1000,101.200,101.100,101.100,101.099,101.000
+Busqueda Binaria,mezclado,1000,21.801,13.400,11.400,10.699,10.401
+Busqueda Ternaria,mezclado,1000,18.600,12.400,11.100,10.800,10.699
+Busqueda por Saltos,mezclado,1000,24.801,20.899,20.501,20.300,20.299
+Busqueda por Interpolacion,mezclado,1000,15.900,9.099,8.200,8.100,8.100
+Busqueda Exponencial,mezclado,1000,21.000,14.200,12.700,11.700,11.400
+Busqueda Lineal,mezclado,10000,1164.100,1157.501,1209.300,1373.700,1178.299
+Busqueda Binaria,mezclado,10000,35.000,20.300,16.299,15.200,14.900
+Busqueda Ternaria,mezclado,10000,26.800,17.500,15.599,15.300,15.300
+Busqueda por Saltos,mezclado,10000,67.600,59.800,71.799,80.400,78.301
+Busqueda por Interpolacion,mezclado,10000,17.100,12.999,12.001,11.800,11.900
+Busqueda Exponencial,mezclado,10000,32.801,22.600,18.500,24.100,16.799
+Busqueda Lineal,mezclado,100000,11322.399,14198.099,12851.800,11524.199,11610.100
+Busqueda Binaria,mezclado,100000,39.301,26.200,21.900,20.401,19.800
+Busqueda Ternaria,mezclado,100000,35.501,22.900,23.300,22.000,23.200
+Busqueda por Saltos,mezclado,100000,185.700,242.700,232.200,235.700,239.599
+Busqueda por Interpolacion,mezclado,100000,35.799,21.701,19.600,18.000,18.400
+Busqueda Exponencial,mezclado,100000,47.301,30.700,25.700,23.700,22.600
+Busqueda Lineal,mezclado,1000000,101461.001,104891.400,111776.000,110939.500,109411.300
+Busqueda Binaria,mezclado,1000000,53.101,33.301,27.400,25.500,24.599
+Busqueda Ternaria,mezclado,1000000,51.101,30.900,26.400,25.099,24.700
+Busqueda por Saltos,mezclado,1000000,482.501,486.700,488.200,484.900,489.600
+Busqueda por Interpolacion,mezclado,1000000,85.901,44.700,29.100,26.600,26.200
+Busqueda Exponencial,mezclado,1000000,70.501,52.200,44.400,41.400,56.800
+Busqueda Lineal,inicio,1000000,2.900,2.899,2.901,2.900,2.900
+Busqueda Binaria,inicio,1000000,21.700,21.699,21.601,21.600,21.699
+Busqueda Ternaria,inicio,1000000,23.300,23.200,23.299,23.200,23.200
+Busqueda por Saltos,inicio,1000000,3.299,3.300,3.301,3.300,3.200
+Busqueda por Interpolacion,inicio,1000000,3.300,3.300,3.300,3.300,3.300
+Busqueda Exponencial,inicio,1000000,3.100,3.100,3.100,3.099,3.100
+Busqueda Lineal,centro,1000000,59611.800,62049.801,59724.699,59470.701,59894.500
+Busqueda Binaria,centro,1000000,21.299,21.301,21.299,21.301,21.300
+Busqueda Ternaria,centro,1000000,21.900,21.900,21.899,21.901,21.900
+Busqueda por Saltos,centro,1000000,231.500,230.500,230.900,238.000,234.201
+Busqueda por Interpolacion,centro,1000000,8.200,8.100,8.099,8.000,8.001
+Busqueda Exponencial,centro,1000000,55.300,55.800,55.999,55.801,55.599
+Busqueda Lineal,final,1000000,119292.500,118958.100,118768.100,118614.200,120288.100
+Busqueda Binaria,final,1000000,22.799,22.800,22.800,22.800,22.800
+Busqueda Ternaria,final,1000000,23.800,23.800,23.800,23.799,23.401
+Busqueda por Saltos,final,1000000,978.600,990.000,983.499,985.900,983.301
+Busqueda por Interpolacion,final,1000000,3.500,3.400,3.399,3.400,3.401
+Busqueda Exponencial,final,1000000,34.500,34.100,34.000,34.100,34.400

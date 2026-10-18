@@ -8,6 +8,7 @@ MIN_VAL = 10_000_000
 MAX_VAL = 99_999_999
 SEED = 42  # Semilla fija para reproducibilidad
 DATA_DIR = "datos_prueba"
+ARCHIVO_CLAVES = "claves_busqueda_punto2.txt"
 
 def crear_directorio():
     """Crea la carpeta para almacenar los datos si no existe."""
@@ -19,11 +20,21 @@ def generar_datos_ordenamiento(force=False):
     """
     Genera y guarda los arreglos de enteros de 8 dígitos para el Punto 1.
     Crea 3 archivos por tamaño: aleatorio, ascendente y descendente.
+
+    Se genera UN solo arreglo aleatorio de N_MAX elementos y el arreglo de tamaño n
+    son sus primeros n elementos. Así los conjuntos quedan anidados
+    (datos_1000 ⊂ datos_10000 ⊂ datos_100000 ⊂ datos_1000000), lo que permite que
+    un mismo conjunto de claves de búsqueda sirva para todos los tamaños (Punto 2).
+    Cada prefijo sigue siendo una muestra aleatoria uniforme e independiente del resto.
     """
     random.seed(SEED)
     print("=" * 60)
     print("GENERANDO DATOS DE PRUEBA PARA ALGORITMOS DE ORDENAMIENTO")
     print("=" * 60)
+
+    n_max = max(SIZES)
+    print(f"Generando {n_max:,} elementos aleatorios de 8 dígitos (semilla {SEED})...")
+    arr_completo = [random.randint(MIN_VAL, MAX_VAL) for _ in range(n_max)]
 
     for n in SIZES:
         archivo_aleatorio = os.path.join(DATA_DIR, f"datos_{n}_random.txt")
@@ -35,9 +46,7 @@ def generar_datos_ordenamiento(force=False):
             print(f"[OMITIDO] Datos para N = {n:,} ya existen.")
             continue
 
-        print(f"Generando {n:,} elementos aleatorios de 8 dígitos...")
-        # Generar arreglo aleatorio
-        arr = [random.randint(MIN_VAL, MAX_VAL) for _ in range(n)]
+        arr = arr_completo[:n]
 
         # 1. Guardar archivo Aleatorio
         with open(archivo_aleatorio, "w") as f:
@@ -58,12 +67,15 @@ def generar_datos_ordenamiento(force=False):
 
 def generar_claves_busqueda(force=False):
     """
-    Genera 1.000 claves para el Punto 2 (Búsqueda):
-    - 500 claves presentes en el arreglo ordenado de 1.000.000.
-    - 500 claves ausentes.
+    Genera 1.000 claves para el Punto 2 (Búsqueda), válidas para TODOS los tamaños:
+    - 500 claves presentes: tomadas del arreglo más pequeño (n = 1.000). Como los
+      arreglos están anidados, también están presentes en los de 10.000, 100.000 y 1.000.000.
+    - 500 claves ausentes: valores de 8 dígitos que no están en el arreglo de 1.000.000,
+      por lo tanto tampoco en ninguno de los menores.
     """
-    archivo_claves = os.path.join(DATA_DIR, "claves_busqueda_1000.txt")
-    archivo_asc_1m = os.path.join(DATA_DIR, "datos_1000000_asc.txt")
+    archivo_claves = os.path.join(DATA_DIR, ARCHIVO_CLAVES)
+    archivo_menor = os.path.join(DATA_DIR, f"datos_{min(SIZES)}_random.txt")
+    archivo_mayor = os.path.join(DATA_DIR, f"datos_{max(SIZES)}_random.txt")
 
     if not force and os.path.exists(archivo_claves):
         print(f"\n[OMITIDO] Claves de búsqueda ya existen: {archivo_claves}")
@@ -73,36 +85,37 @@ def generar_claves_busqueda(force=False):
     print("GENERANDO CLAVES DE BÚSQUEDA (PUNTO 2)")
     print("=" * 60)
 
-    if not os.path.exists(archivo_asc_1m):
-        print("Error: Se necesita 'datos_1000000_asc.txt' previamente generado.")
+    if not os.path.exists(archivo_menor) or not os.path.exists(archivo_mayor):
+        print("Error: Se necesitan los arreglos de datos previamente generados.")
         return
 
-    # Cargar los datos ordenados de 1M
-    print("Cargando arreglo de N = 1.000.000 para extraer muestras...")
-    with open(archivo_asc_1m, "r") as f:
-        arr_1m = [int(line.strip()) for line in f]
+    with open(archivo_menor, "r") as f:
+        arr_menor = [int(line) for line in f if line.strip()]
+    with open(archivo_mayor, "r") as f:
+        set_mayor = {int(line) for line in f if line.strip()}
 
-    set_1m = set(arr_1m)
+    # Semilla propia para que las claves no dependan del orden de generación de los datos
+    rng = random.Random(SEED + 1)
 
-    # 1. Seleccionar 500 claves PRESENTES
-    claves_presentes = random.sample(arr_1m, 500)
+    # 1. Seleccionar 500 claves PRESENTES (del arreglo de n = 1.000, sin repetir valores)
+    claves_presentes = rng.sample(sorted(set(arr_menor)), 500)
 
-    # 2. Generar 500 claves AUSENTES
-    claves_ausentes = []
+    # 2. Generar 500 claves AUSENTES (distintas entre sí)
+    claves_ausentes = set()
     while len(claves_ausentes) < 500:
-        val = random.randint(MIN_VAL, MAX_VAL)
-        if val not in set_1m:
-            claves_ausentes.append(val)
+        val = rng.randint(MIN_VAL, MAX_VAL)
+        if val not in set_mayor:
+            claves_ausentes.add(val)
 
     # Mezclar las 1.000 claves para intercalar presentes y ausentes
-    todas_las_claves = claves_presentes + claves_ausentes
-    random.shuffle(todas_las_claves)
+    todas_las_claves = claves_presentes + sorted(claves_ausentes)
+    rng.shuffle(todas_las_claves)
 
     # Guardar en archivo
     with open(archivo_claves, "w") as f:
         f.write("\n".join(map(str, todas_las_claves)) + "\n")
 
-    print(f"  -> Guardado: {archivo_claves} (500 presentes + 500 ausentes)")
+    print(f"  -> Guardado: {archivo_claves} (500 presentes + 500 ausentes, para todos los n)")
 
 # ==============================================================================
 # FUNCIONES AUXILIARES PARA USAR EN TUS ALGORITMOS (LECTURA)
@@ -126,7 +139,7 @@ def cargar_arreglo(n: int, variante: str = "random") -> list[int]:
 
 def cargar_claves_busqueda() -> list[int]:
     """Carga la lista de las 1.000 claves de búsqueda para el Punto 2."""
-    ruta = os.path.join(DATA_DIR, "claves_busqueda_1000.txt")
+    ruta = os.path.join(DATA_DIR, ARCHIVO_CLAVES)
     if not os.path.exists(ruta):
         raise FileNotFoundError(f"El archivo {ruta} no existe. Ejecuta generar_datos.py primero.")
     

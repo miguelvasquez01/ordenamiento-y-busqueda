@@ -1,0 +1,7 @@
+﻿Algoritmo,Inicio (ns),Centro (ns),Final (ns)
+Busqueda Lineal,143.76,10438675.88,20691304.06
+Busqueda Binaria,1545.26,1616.86,1678.04
+Busqueda Ternaria,1635.22,1901.2,1868.38
+Busqueda por Saltos,203.68,68476.52,191742.5
+Busqueda por Interpolacion,214.98,677.06,245.34
+Busqueda Exponencial,193.14,1914.4,2436.0

@@ -1,0 +1,5 @@
+﻿n,Busqueda Lineal (ns),Busqueda Binaria (ns),Busqueda Ternaria (ns),Busqueda por Saltos (ns),Busqueda por Interpolacion (ns),Busqueda Exponencial (ns)
+1000,101.1,13.54,12.72,21.36,9.88,14.2
+10000,1216.58,20.34,18.1,71.58,13.16,22.96
+100000,12301.32,25.52,25.38,227.18,22.7,30.0
+1000000,107695.84,32.78,31.64,486.38,42.5,53.06

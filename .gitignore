@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Java (clases compiladas)
+out/
+*.class
+
+# Editor / sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

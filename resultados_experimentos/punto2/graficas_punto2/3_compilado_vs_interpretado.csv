@@ -1,0 +1,7 @@
+﻿Algoritmo,Java (ns),Python (ns),Python / Java (veces)
+Busqueda Lineal,107695.84,15506181.76,144.0
+Busqueda Binaria,32.78,2138.06,65.2
+Busqueda Ternaria,31.64,2399.78,75.8
+Busqueda por Saltos,486.38,96300.08,198.0
+Busqueda por Interpolacion,42.5,1080.2,25.4
+Busqueda Exponencial,53.06,2939.88,55.4
