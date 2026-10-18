@@ -2,8 +2,8 @@
 Utilidades compartidas por todos los puntos del taller:
   - Lectura de los datos de prueba (arreglos y claves de búsqueda).
   - Registro de resultados (medidos o estimados) en CSV y JSON, un par de archivos por punto:
-        resultados_experimentos/resultados_punto1_ordenamiento.{csv,json}
-        resultados_experimentos/resultados_punto2_busqueda.{csv,json}
+        resultados_experimentos/punto1/resultados_punto1_ordenamiento.{csv,json}
+        resultados_experimentos/punto2/resultados_punto2_busqueda.{csv,json}
   - Importación de los tiempos crudos producidos por el lenguaje compilado (Java).
   - Consulta de resultados ya registrados (útil para gráficas y para el Punto 3).
 
@@ -32,6 +32,10 @@ PUNTO2 = "punto2_busqueda"
 
 os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(RESULTS_DIR, exist_ok=True)
+
+def carpeta_resultados(experimento: str) -> str:
+    """Carpeta de resultados de un punto, p. ej. 'punto2_busqueda' -> resultados_experimentos/punto2"""
+    return os.path.join(RESULTS_DIR, experimento.split("_")[0])
 
 # ==============================================================================
 # 1. FUNCIONES AUXILIARES DE LECTURA DE DATOS DE ENTRADA
@@ -90,8 +94,11 @@ class GestorResultados:
 
     CLAVE = ("algoritmo", "lenguaje", "variante_entrada", "n")
 
-    def __init__(self, experimento: str, directorio: str = RESULTS_DIR):
+    def __init__(self, experimento: str, directorio: str = None):
         self.experimento = experimento
+        # Por defecto cada punto usa su carpeta: resultados_experimentos/punto1, .../punto2
+        directorio = directorio or carpeta_resultados(experimento)
+        os.makedirs(directorio, exist_ok=True)
         self.ruta_csv = os.path.join(directorio, f"resultados_{experimento}.csv")
         self.ruta_json = os.path.join(directorio, f"resultados_{experimento}.json")
         self.registros: List[Dict[str, Any]] = []
@@ -199,7 +206,7 @@ class GestorResultados:
             json.dump(self.registros, f, indent=4, ensure_ascii=False)
 
 
-def cargar_resultados(experimento: str, directorio: str = RESULTS_DIR) -> List[Dict[str, Any]]:
+def cargar_resultados(experimento: str, directorio: str = None) -> List[Dict[str, Any]]:
     """Lee los resultados registrados de un punto (para gráficas o para el Punto 3)."""
     return GestorResultados(experimento, directorio).registros
 

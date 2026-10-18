@@ -18,7 +18,7 @@ import java.util.Set;
  * Luego registrar los resultados:
  *   py punto2/benchmark_busqueda.py --java
  *
- * Escribe resultados_experimentos/tiempos_crudos_java_punto2_busqueda.csv con el tiempo promedio
+ * Escribe resultados_experimentos/punto2/tiempos_crudos_java_punto2_busqueda.csv con el tiempo promedio
  * POR BÚSQUEDA (total de 1.000 búsquedas / 1.000) de cada una de las 5 repeticiones.
  */
 public class BenchmarkBusqueda {
@@ -27,7 +27,7 @@ public class BenchmarkBusqueda {
     static final int REPETICIONES = 5;
     static final int N_POSICIONES = 1_000_000;
     static final int BUSQUEDAS_POR_POSICION = 1_000;
-    static final String SALIDA = "resultados_experimentos/tiempos_crudos_java_punto2_busqueda.csv";
+    static final String SALIDA = "resultados_experimentos/punto2/tiempos_crudos_java_punto2_busqueda.csv";
 
     interface Busqueda {
         boolean buscar(int[] arr, int x);
@@ -96,7 +96,7 @@ public class BenchmarkBusqueda {
     }
 
     public static void main(String[] args) throws IOException {
-        Files.createDirectories(Path.of("resultados_experimentos"));
+        Files.createDirectories(Path.of("resultados_experimentos/punto2"));
         int[] claves = cargar("datos_prueba/claves_busqueda_punto2.txt");
 
         // Calentamiento global (no se mide): deja que el JIT compile todos los algoritmos

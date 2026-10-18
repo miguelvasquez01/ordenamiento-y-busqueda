@@ -22,14 +22,14 @@ os.chdir(RAIZ)  # registrar_resultados usa rutas relativas a la raíz
 sys.path.insert(0, RAIZ)
 sys.path.insert(0, os.path.join(RAIZ, "punto2"))
 
-from registrar_resultados import GestorResultados, PUNTO2, cargar_arreglo, cargar_claves_busqueda
+from registrar_resultados import GestorResultados, PUNTO2, carpeta_resultados, cargar_arreglo, cargar_claves_busqueda
 import algoritmos
 
 SIZES = [1_000, 10_000, 100_000, 1_000_000]
 REPETICIONES = 5
 N_POSICIONES = 1_000_000
 BUSQUEDAS_POR_POSICION = 1_000
-RUTA_TIEMPOS_JAVA = os.path.join("resultados_experimentos", "tiempos_crudos_java_punto2_busqueda.csv")
+RUTA_TIEMPOS_JAVA = os.path.join(carpeta_resultados(PUNTO2), "tiempos_crudos_java_punto2_busqueda.csv")
 
 # Todas las funciones se adaptan a la firma f(arr, x) -> bool (encontrado o no)
 ALGORITMOS = {

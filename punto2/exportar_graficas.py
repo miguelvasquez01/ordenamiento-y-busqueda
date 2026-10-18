@@ -2,8 +2,8 @@
 Punto 2 - Exporta los CSV listos para importar en Excel y generar las gráficas/tablas del enunciado.
 
 Uso:  py punto2/exportar_graficas.py
-Lee:  resultados_experimentos/resultados_punto2_busqueda.json
-Escribe en resultados_experimentos/graficas_punto2/:
+Lee:  resultados_experimentos/punto2/resultados_punto2_busqueda.json
+Escribe en resultados_experimentos/punto2/graficas_punto2/:
   1_crecimiento_python.csv          -> gráfica de líneas (filas = n, una columna por algoritmo)
   2_crecimiento_java.csv            -> gráfica de líneas (filas = n, una columna por algoritmo)
   3_compilado_vs_interpretado.csv   -> gráfico de barras n = 1.000.000 (filas = algoritmo, columnas Java/Python)
@@ -21,9 +21,9 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(RAIZ)
 sys.path.insert(0, RAIZ)
 
-from registrar_resultados import RESULTS_DIR, PUNTO2, cargar_resultados
+from registrar_resultados import PUNTO2, carpeta_resultados, cargar_resultados
 
-SALIDA = os.path.join(RESULTS_DIR, "graficas_punto2")
+SALIDA = os.path.join(carpeta_resultados(PUNTO2), "graficas_punto2")
 SIZES = [1_000, 10_000, 100_000, 1_000_000]
 N_COMPARACION = 1_000_000
 LENGUAJES = ["Python", "Java"]
